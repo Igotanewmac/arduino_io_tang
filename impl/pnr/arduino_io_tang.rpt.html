@@ -83,7 +83,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Wed Aug 09 08:43:38 2023
+<td>Wed Aug 09 12:04:03 2023
 </td>
 </tr>
 <tr>
@@ -97,24 +97,24 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td class="label">Place & Route Process</td>
 <td>Running placement:
-   Placement Phase 0: CPU time = 0h 0m 0.086s, Elapsed time = 0h 0m 0.086s
-   Placement Phase 1: CPU time = 0h 0m 0.245s, Elapsed time = 0h 0m 0.245s
-   Placement Phase 2: CPU time = 0h 0m 0.041s, Elapsed time = 0h 0m 0.041s
-   Placement Phase 3: CPU time = 0h 0m 0.887s, Elapsed time = 0h 0m 0.886s
+   Placement Phase 0: CPU time = 0h 0m 0.073s, Elapsed time = 0h 0m 0.074s
+   Placement Phase 1: CPU time = 0h 0m 0.249s, Elapsed time = 0h 0m 0.248s
+   Placement Phase 2: CPU time = 0h 0m 0.088s, Elapsed time = 0h 0m 0.088s
+   Placement Phase 3: CPU time = 0h 0m 0.914s, Elapsed time = 0h 0m 0.914s
    Total Placement: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
 Running routing:
    Routing Phase 0: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-   Routing Phase 1: CPU time = 0h 0m 0.131s, Elapsed time = 0h 0m 0.131s
-   Routing Phase 2: CPU time = 0h 0m 0.492s, Elapsed time = 0h 0m 0.492s
+   Routing Phase 1: CPU time = 0h 0m 0.133s, Elapsed time = 0h 0m 0.134s
+   Routing Phase 2: CPU time = 0h 0m 0.83s, Elapsed time = 0h 0m 0.829s
    Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-   Total Routing: CPU time = 0h 0m 0.623s, Elapsed time = 0h 0m 0.623s
+   Total Routing: CPU time = 0h 0m 0.963s, Elapsed time = 0h 0m 0.963s
 Generate output files:
    CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s
 </td>
 </tr>
 <tr>
 <td class="label">Total Time and Memory Usage</td>
-<td>CPU time = 0h 0m 5s, Elapsed time = 0h 0m 5s, Peak memory usage = 316MB</td>
+<td>CPU time = 0h 0m 5s, Elapsed time = 0h 0m 5s, Peak memory usage = 322MB</td>
 </tr>
 </table>
 <br/>
@@ -129,12 +129,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Logic</td>
-<td>249/20736</td>
+<td>368/20736</td>
 <td>2%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --LUT,ALU,ROM16</td>
-<td>249(179 LUT, 70 ALU, 0 ROM16)</td>
+<td>368(298 LUT, 70 ALU, 0 ROM16)</td>
 <td>-</td>
 </tr>
 <tr>
@@ -144,8 +144,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Register</td>
-<td>273/15750</td>
-<td>2%</td>
+<td>358/15750</td>
+<td>3%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as Latch</td>
@@ -154,8 +154,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as FF</td>
-<td>263/15552</td>
-<td>2%</td>
+<td>348/15552</td>
+<td>3%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --I/O Register as Latch</td>
@@ -169,8 +169,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">CLS</td>
-<td>229/10368</td>
-<td>3%</td>
+<td>325/10368</td>
+<td>4%</td>
 </tr>
 <tr>
 <td class="label">I/O Port</td>
@@ -204,8 +204,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">BSRAM</td>
-<td>32 DPB<br/></td>
-<td>70%</td>
+<td>8 SP<br/>32 DPB<br/></td>
+<td>87%</td>
 </tr>
 <tr>
 <td class="label">DSP</td>
@@ -300,11 +300,11 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">PRIMARY</td>
-<td>5/8(63%)</td>
+<td>4/8(50%)</td>
 </tr>
 <tr>
 <td class="label">LW</td>
-<td>3/8(38%)</td>
+<td>7/8(88%)</td>
 </tr>
 <tr>
 <td class="label">GCLK_PIN</td>
@@ -337,24 +337,19 @@ Generate output files:
 <td> TR TL BR BL</td>
 </tr>
 <tr>
-<td class="label">wire_mem_key_clka</td>
+<td class="label">wire_mem_key_clkb</td>
 <td>PRIMARY</td>
 <td> TR TL BR BL</td>
 </tr>
 <tr>
-<td class="label">wire_mem_src_clka</td>
-<td>PRIMARY</td>
-<td> TR TL BR BL</td>
-</tr>
-<tr>
-<td class="label">wire_mem_cmd_clkb</td>
+<td class="label">wire_mem_dst_clkb</td>
 <td>PRIMARY</td>
 <td> TR TL BR</td>
 </tr>
 <tr>
-<td class="label">wire_mem_src_clkb</td>
+<td class="label">wire_mem_ram_clk</td>
 <td>PRIMARY</td>
-<td> TR TL BR BL</td>
+<td> TR TL</td>
 </tr>
 <tr>
 <td class="label">arduino_reset_d</td>
@@ -368,6 +363,26 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">wire_mem_cmd_clka</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">wire_mem_key_clka</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">wire_mem_src_clka</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">wire_mem_cmd_clkb</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">wire_mem_src_clkb</td>
 <td>LW</td>
 <td> -</td>
 </tr>
