@@ -3,7 +3,7 @@ Running parser ...
 Analyzing Verilog file 'C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\gowin_dpb\gowin_dpb_16k.v'
 Analyzing Verilog file 'C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v'
 Analyzing Verilog file 'C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\gowin_sp\gowin_sp_16k.v'
-Compiling module 'top'("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1216)
+Compiling module 'top'("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1314)
 Compiling module 'Gowin_DPB_16k'("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\gowin_dpb\gowin_dpb_16k.v":10)
 Compiling module 'arduino_io'("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":7)
 WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":144)
@@ -16,15 +16,16 @@ WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users
 WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":393)
 Compiling module 'Gowin_SP16k'("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\gowin_sp\gowin_sp_16k.v":10)
 Compiling module 'central_processor'("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":438)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":686)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":768)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":850)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":932)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1014)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1104)
-WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1145)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":697)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":779)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":861)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":943)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1025)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1118)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1199)
+WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":1243)
+WARN  (EX1998) : Net 'reg_lfsr_single[15]' does not have a driver("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":530)
 NOTE  (EX0101) : Current top module is "top"
-WARN  (EX0211) : The output port "mem_key_oce" of module "central_processor" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":457)
 WARN  (EX0211) : The output port "mem_dst_oce" of module "central_processor" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":475)
 [5%] Running netlist conversion ...
 Running device independent optimization ...
