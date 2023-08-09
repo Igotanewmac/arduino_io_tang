@@ -1446,43 +1446,43 @@ module central_processor (
                                 end
                             endcase
                         end
-                        // 0xE4 key -> src--
+                        // 0xE4 key -> src
                         8'hE4 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_oce <= 1'b1;
                                     mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_src_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
+                                    mem_key_ad <= reg_int_address;
                                     mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_key_clk <= 1'b0;
+                                    mem_src_din <= mem_key_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_src_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_src_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1493,41 +1493,41 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_oce <= 1'b0;
                                     mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_src_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xE5 key -> ram--
+                        // 0xE5 key -> ram
                         8'hE5 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
                                     mem_ram_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
+                                    mem_key_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_key_clk <= 1'b0;
+                                    mem_ram_din <= mem_key_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
@@ -1548,51 +1548,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
                                     mem_ram_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xE6 key -> cmd--
+                        // 0xE6 key -> cmd
                         8'hE6 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_oce <= 1'b1;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
+                                    mem_key_ad <= reg_int_address;
+                                    mem_cmd_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_key_clk <= 1'b0;
+                                    mem_cmd_din <= mem_key_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_cmd_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1603,51 +1603,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_oce <= 1'b0;
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xE7 key -> dst--
+                        // 0xE7 key -> dst
                         8'hE7 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_oce <= 1'b1;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
+                                    mem_key_ad <= reg_int_address;
+                                    mem_dst_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_key_clk <= 1'b0;
+                                    mem_dst_din <= mem_key_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_dst_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1658,51 +1658,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_oce <= 1'b0;
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xE8 cmd -> src--
+                        // 0xE8 cmd -> src
                         8'hE8 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_oce <= 1'b1;
                                     mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_src_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
+                                    mem_cmd_ad <= reg_int_address;
                                     mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_cmd_clk <= 1'b0;
+                                    mem_src_din <= mem_cmd_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_src_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_src_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1713,51 +1713,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_oce <= 1'b0;
                                     mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_src_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xE9 cmd -> key--
+                        // 0xE9 cmd -> key
                         8'hE9 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_oce <= 1'b1;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
+                                    mem_cmd_ad <= reg_int_address;
+                                    mem_key_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_cmd_clk <= 1'b0;
+                                    mem_key_din <= mem_cmd_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_key_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1768,41 +1768,41 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_oce <= 1'b0;
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xEA cmd -> ram--
+                        // 0xEA cmd -> ram
                         8'hEA : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
                                     mem_ram_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
+                                    mem_cmd_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_cmd_clk <= 1'b0;
+                                    mem_ram_din <= mem_cmd_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
@@ -1823,51 +1823,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
                                     mem_ram_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xEB cmd -> dst--
+                        // 0xEB cmd -> dst
                         8'hEB : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_oce <= 1'b1;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
+                                    mem_cmd_ad <= reg_int_address;
+                                    mem_dst_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_cmd_clk <= 1'b0;
+                                    mem_dst_din <= mem_cmd_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_dst_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1878,51 +1878,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_oce <= 1'b0;
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xEC dst -> src--
+                        // 0xEC dst -> src
                         8'hEC : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_oce <= 1'b1;
                                     mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_src_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
+                                    mem_dst_ad <= reg_int_address;
                                     mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_dst_clk <= 1'b0;
+                                    mem_src_din <= mem_dst_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_src_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_src_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1933,51 +1933,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_oce <= 1'b0;
                                     mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_src_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xED dst -> key--
+                        // 0xED dst -> key
                         8'hED : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_oce <= 1'b1;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
+                                    mem_dst_ad <= reg_int_address;
+                                    mem_key_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_dst_clk <= 1'b0;
+                                    mem_key_din <= mem_dst_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_key_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -1988,51 +1988,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_oce <= 1'b0;
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xEE dst -> cmd--
+                        // 0xEE dst -> cmd
                         8'hEE : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
-                                    mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_oce <= 1'b1;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
-                                    mem_ram_ad <= reg_int_address;
+                                    mem_dst_ad <= reg_int_address;
+                                    mem_cmd_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_dst_clk <= 1'b0;
+                                    mem_cmd_din <= mem_dst_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_cmd_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -2043,51 +2043,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
-                                    mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_oce <= 1'b0;
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xEF dst -> ram--
+                        // 0xEF dst -> ram
                         8'hEF : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
                                     mem_ram_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
+                                    mem_dst_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_dst_clk <= 1'b0;
+                                    mem_ram_din <= mem_dst_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_dst_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -2098,51 +2098,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
                                     mem_ram_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xF0 ram -> src--
+                        // 0xF0 ram -> src
                         8'hF0 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_ram_oce <= 1'b1;
+                                    mem_src_ce <= 1'b1;
+                                    mem_src_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
+                                    mem_src_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_ram_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_ram_clk <= 1'b0;
+                                    mem_src_din <= mem_ram_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_src_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_src_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -2153,51 +2153,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_ram_oce <= 1'b0;
+                                    mem_src_ce <= 1'b0;
+                                    mem_src_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xF1 ram -> key--
+                        // 0xF1 ram -> key
                         8'hF1 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_ram_oce <= 1'b1;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
+                                    mem_key_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_ram_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_ram_clk <= 1'b0;
+                                    mem_key_din <= mem_ram_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_key_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_key_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -2208,51 +2208,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_ram_oce <= 1'b0;
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xF2 ram -> cmd--
+                        // 0xF2 ram -> cmd
                         8'hF2 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_ram_oce <= 1'b1;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
+                                    mem_cmd_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_ram_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_ram_clk <= 1'b0;
+                                    mem_cmd_din <= mem_ram_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_cmd_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_cmd_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -2263,51 +2263,51 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_ram_oce <= 1'b0;
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
                         end
-                        // 0xF3 ram -> dst--
+                        // 0xF3 ram -> dst
                         8'hF3 : begin
                             case (statemachine_command)
                                 // initialise
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
-                                    mem_src_ce <= 1'b1;
-                                    mem_src_oce <= 1'b1;
                                     mem_ram_ce <= 1'b1;
-                                    mem_ram_wre <= 1'b1;
+                                    mem_ram_oce <= 1'b1;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_wre <= 1'b1;
                                     statemachine_command <= 8'h01;
                                 end
                                 // set address to source and destination
                                 8'h01 : begin
-                                    mem_src_ad <= reg_int_address;
                                     mem_ram_ad <= reg_int_address;
+                                    mem_dst_ad <= reg_int_address;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock source up
                                 8'h02 : begin
-                                    mem_src_clk <= 1'b1;
+                                    mem_ram_clk <= 1'b1;
                                     statemachine_command <= 8'h03;
                                 end
                                 // clock source down
                                 8'h03 : begin
-                                    mem_src_clk <= 1'b0;
-                                    mem_ram_din <= mem_src_dout;
+                                    mem_ram_clk <= 1'b0;
+                                    mem_dst_din <= mem_ram_dout;
                                     statemachine_command <= 8'h04;
                                 end
                                 // clock destination up
                                 8'h04 : begin
-                                    mem_ram_clk <= 1'b1;
+                                    mem_dst_clk <= 1'b1;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock destination down
                                 8'h05 : begin
-                                    mem_ram_clk <= 1'b0;
+                                    mem_dst_clk <= 1'b0;
                                     reg_int_address = reg_int_address + 1;
                                     statemachine_command <= 8'h06;
                                 end
@@ -2318,10 +2318,10 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h07 : begin
-                                    mem_src_ce <= 1'b0;
-                                    mem_src_oce <= 1'b0;
                                     mem_ram_ce <= 1'b0;
-                                    mem_ram_wre <= 1'b0;
+                                    mem_ram_oce <= 1'b0;
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_wre <= 1'b0;
                                     statemachine_program <= 8'hFE;
                                 end
                             endcase
