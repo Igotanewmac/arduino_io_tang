@@ -1222,7 +1222,7 @@ module central_processor (
 
                         // 0x21 (src^lfsr)=dst
 
-                        // 0x22 copy lfsr to dst 
+                        // 0x22 copy lfsr to dst
 
 
 
@@ -1387,7 +1387,7 @@ module central_processor (
                                     mem_src_oce <= 1'b0;
                                     mem_cmd_ce <= 1'b0;
                                     mem_cmd_wre <= 1'b0;
-                                    statemachine_program <= 8'hFE;
+                                    statemachine_program <= 8'hFF;
                                 end
                             endcase
                         end
@@ -1607,7 +1607,7 @@ module central_processor (
                                     mem_key_oce <= 1'b0;
                                     mem_cmd_ce <= 1'b0;
                                     mem_cmd_wre <= 1'b0;
-                                    statemachine_program <= 8'hFE;
+                                    statemachine_program <= 8'hFF;
                                 end
                             endcase
                         end
@@ -2047,7 +2047,7 @@ module central_processor (
                                     mem_dst_oce <= 1'b0;
                                     mem_cmd_ce <= 1'b0;
                                     mem_cmd_wre <= 1'b0;
-                                    statemachine_program <= 8'hFE;
+                                    statemachine_program <= 8'hFF;
                                 end
                             endcase
                         end
@@ -2267,7 +2267,7 @@ module central_processor (
                                     mem_ram_oce <= 1'b0;
                                     mem_cmd_ce <= 1'b0;
                                     mem_cmd_wre <= 1'b0;
-                                    statemachine_program <= 8'hFE;
+                                    statemachine_program <= 8'hFF;
                                 end
                             endcase
                         end
