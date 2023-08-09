@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="top">
+    <SubModule name="bankmem_src" Bsram="8"/>
+    <SubModule name="bankmem_key" Bsram="8"/>
+    <SubModule name="bankmem_cmd" Bsram="8"/>
+    <SubModule name="bankmem_dst" Bsram="8"/>
+    <SubModule name="myarduino_io" Register="174" Alu="52" Lut="68"/>
+    <SubModule name="mycentral_processor" Register="99" Alu="13" Lut="111"/>
+</Module>
