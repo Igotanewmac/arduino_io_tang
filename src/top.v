@@ -688,13 +688,338 @@ module central_processor (
                                 end
                                 
                             endcase
-
                         end
 
                         // 0x03 fill key with byte from src
+                        8'h03 : begin
+                                
+                            case (statemachine_command)
+                                // load byte from 0x00 in src
+                                // set address and clocks
+                                8'h00 : begin
+                                    mem_src_ad <= 14'd0;
+                                    mem_src_ce <= 1'b1;
+                                    mem_src_oce <= 1'b1;
+                                    statemachine_command <= 8'h01;
+                                end
+
+                                // set clock high
+                                8'h01 : begin
+                                    mem_src_clk <= 1'b1;
+                                    statemachine_command <= 8'h02;
+                                end
+                                
+                                // set clock low
+                                8'h02 : begin
+                                    mem_src_clk <= 1'b0;
+                                    statemachine_command <= 8'h03;
+                                end
+                                
+                                // read data
+                                8'h03 : begin
+                                    reg_int_data <= mem_src_dout;
+                                    mem_src_ce <= 1'b0;
+                                    mem_src_oce <= 1'b0;
+                                    statemachine_command <= 8'h04;
+                                end
+                                
+                                // set address counter to zero
+                                8'h04 : begin
+                                    reg_int_address <= 14'd0;
+                                    statemachine_command <= 8'h05;
+                                end
+
+                                // set memory for write
+                                8'h05 : begin
+                                    mem_key_ad <= reg_int_address;
+                                    mem_key_din <= reg_int_data;
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_wre <= 1'b1;
+                                    statemachine_command <= 8'h06;
+                                end
+                                // clock high
+                                8'h06 : begin
+                                    mem_key_clk <= 1'b1;
+                                    statemachine_command <= 8'h07;
+                                end
+                                // clock low
+                                8'h07 : begin
+                                    mem_key_clk <= 1'b0;
+                                    statemachine_command <= 8'h08;
+                                end
+                                // finish
+                                8'h08 : begin
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_wre <= 1'b0;
+                                    statemachine_command <= 8'h09;
+                                end
+                                // increment address counter
+                                8'h09 : begin
+                                    reg_int_address = reg_int_address + 1;
+                                    statemachine_command <= 8'h0A;
+                                end
+                                // if address counter is zero, jmp
+                                8'h0A : begin
+                                    if (reg_int_address != 0 ) statemachine_command <= 8'h05;
+                                    else statemachine_command <= 8'h0B;
+                                end
+                                // finish up
+                                8'h0B : begin
+                                    statemachine_program <= 8'hFE;
+                                    
+                                end
+                                
+                            endcase
+                        end
+
                         // 0x04 fill cmd with byte from src
+                        8'h04 : begin
+                                
+                            case (statemachine_command)
+                                // load byte from 0x00 in src
+                                // set address and clocks
+                                8'h00 : begin
+                                    mem_src_ad <= 14'd0;
+                                    mem_src_ce <= 1'b1;
+                                    mem_src_oce <= 1'b1;
+                                    statemachine_command <= 8'h01;
+                                end
+
+                                // set clock high
+                                8'h01 : begin
+                                    mem_src_clk <= 1'b1;
+                                    statemachine_command <= 8'h02;
+                                end
+                                
+                                // set clock low
+                                8'h02 : begin
+                                    mem_src_clk <= 1'b0;
+                                    statemachine_command <= 8'h03;
+                                end
+                                
+                                // read data
+                                8'h03 : begin
+                                    reg_int_data <= mem_src_dout;
+                                    mem_src_ce <= 1'b0;
+                                    mem_src_oce <= 1'b0;
+                                    statemachine_command <= 8'h04;
+                                end
+                                
+                                // set address counter to zero
+                                8'h04 : begin
+                                    reg_int_address <= 14'd0;
+                                    statemachine_command <= 8'h05;
+                                end
+
+                                // set memory for write
+                                8'h05 : begin
+                                    mem_cmd_ad <= reg_int_address;
+                                    mem_cmd_din <= reg_int_data;
+                                    mem_cmd_ce <= 1'b1;
+                                    mem_cmd_wre <= 1'b1;
+                                    statemachine_command <= 8'h06;
+                                end
+                                // clock high
+                                8'h06 : begin
+                                    mem_cmd_clk <= 1'b1;
+                                    statemachine_command <= 8'h07;
+                                end
+                                // clock low
+                                8'h07 : begin
+                                    mem_cmd_clk <= 1'b0;
+                                    statemachine_command <= 8'h08;
+                                end
+                                // finish
+                                8'h08 : begin
+                                    mem_cmd_ce <= 1'b0;
+                                    mem_cmd_wre <= 1'b0;
+                                    statemachine_command <= 8'h09;
+                                end
+                                // increment address counter
+                                8'h09 : begin
+                                    reg_int_address = reg_int_address + 1;
+                                    statemachine_command <= 8'h0A;
+                                end
+                                // if address counter is zero, jmp
+                                8'h0A : begin
+                                    if (reg_int_address != 0 ) statemachine_command <= 8'h05;
+                                    else statemachine_command <= 8'h0B;
+                                end
+                                // finish up
+                                8'h0B : begin
+                                    statemachine_program <= 8'hFE;
+                                    
+                                end
+                                
+                            endcase
+                        end
+
                         // 0x05 fill dst with byte from src
+                        8'h05 : begin
+                                
+                            case (statemachine_command)
+                                // load byte from 0x00 in src
+                                // set address and clocks
+                                8'h00 : begin
+                                    mem_src_ad <= 14'd0;
+                                    mem_src_ce <= 1'b1;
+                                    mem_src_oce <= 1'b1;
+                                    statemachine_command <= 8'h01;
+                                end
+
+                                // set clock high
+                                8'h01 : begin
+                                    mem_src_clk <= 1'b1;
+                                    statemachine_command <= 8'h02;
+                                end
+                                
+                                // set clock low
+                                8'h02 : begin
+                                    mem_src_clk <= 1'b0;
+                                    statemachine_command <= 8'h03;
+                                end
+                                
+                                // read data
+                                8'h03 : begin
+                                    reg_int_data <= mem_src_dout;
+                                    mem_src_ce <= 1'b0;
+                                    mem_src_oce <= 1'b0;
+                                    statemachine_command <= 8'h04;
+                                end
+                                
+                                // set address counter to zero
+                                8'h04 : begin
+                                    reg_int_address <= 14'd0;
+                                    statemachine_command <= 8'h05;
+                                end
+
+                                // set memory for write
+                                8'h05 : begin
+                                    mem_dst_ad <= reg_int_address;
+                                    mem_dst_din <= reg_int_data;
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_wre <= 1'b1;
+                                    statemachine_command <= 8'h06;
+                                end
+                                // clock high
+                                8'h06 : begin
+                                    mem_dst_clk <= 1'b1;
+                                    statemachine_command <= 8'h07;
+                                end
+                                // clock low
+                                8'h07 : begin
+                                    mem_dst_clk <= 1'b0;
+                                    statemachine_command <= 8'h08;
+                                end
+                                // finish
+                                8'h08 : begin
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_wre <= 1'b0;
+                                    statemachine_command <= 8'h09;
+                                end
+                                // increment address counter
+                                8'h09 : begin
+                                    reg_int_address = reg_int_address + 1;
+                                    statemachine_command <= 8'h0A;
+                                end
+                                // if address counter is zero, jmp
+                                8'h0A : begin
+                                    if (reg_int_address != 0 ) statemachine_command <= 8'h05;
+                                    else statemachine_command <= 8'h0B;
+                                end
+                                // finish up
+                                8'h0B : begin
+                                    statemachine_program <= 8'hFE;
+                                    
+                                end
+                                
+                            endcase
+                        end
+
                         // 0x06 fill ram with byte from src
+                        8'h05 : begin
+                                
+                            case (statemachine_command)
+                                // load byte from 0x00 in src
+                                // set address and clocks
+                                8'h00 : begin
+                                    mem_src_ad <= 14'd0;
+                                    mem_src_ce <= 1'b1;
+                                    mem_src_oce <= 1'b1;
+                                    statemachine_command <= 8'h01;
+                                end
+
+                                // set clock high
+                                8'h01 : begin
+                                    mem_src_clk <= 1'b1;
+                                    statemachine_command <= 8'h02;
+                                end
+                                
+                                // set clock low
+                                8'h02 : begin
+                                    mem_src_clk <= 1'b0;
+                                    statemachine_command <= 8'h03;
+                                end
+                                
+                                // read data
+                                8'h03 : begin
+                                    reg_int_data <= mem_src_dout;
+                                    mem_src_ce <= 1'b0;
+                                    mem_src_oce <= 1'b0;
+                                    statemachine_command <= 8'h04;
+                                end
+                                
+                                // set address counter to zero
+                                8'h04 : begin
+                                    reg_int_address <= 14'd0;
+                                    statemachine_command <= 8'h05;
+                                end
+
+                                // set memory for write
+                                8'h05 : begin
+                                    mem_ram_ad <= reg_int_address;
+                                    mem_ram_din <= reg_int_data;
+                                    mem_ram_ce <= 1'b1;
+                                    mem_ram_wre <= 1'b1;
+                                    statemachine_command <= 8'h06;
+                                end
+                                // clock high
+                                8'h06 : begin
+                                    mem_ram_clk <= 1'b1;
+                                    statemachine_command <= 8'h07;
+                                end
+                                // clock low
+                                8'h07 : begin
+                                    mem_ram_clk <= 1'b0;
+                                    statemachine_command <= 8'h08;
+                                end
+                                // finish
+                                8'h08 : begin
+                                    mem_ram_ce <= 1'b0;
+                                    mem_ram_wre <= 1'b0;
+                                    statemachine_command <= 8'h09;
+                                end
+                                // increment address counter
+                                8'h09 : begin
+                                    reg_int_address = reg_int_address + 1;
+                                    statemachine_command <= 8'h0A;
+                                end
+                                // if address counter is zero, jmp
+                                8'h0A : begin
+                                    if (reg_int_address != 0 ) statemachine_command <= 8'h05;
+                                    else statemachine_command <= 8'h0B;
+                                end
+                                // finish up
+                                8'h0B : begin
+                                    statemachine_program <= 8'hFE;
+                                    
+                                end
+                                
+                            endcase
+                        end
+
+
+
                         // 0x07 copy ram to dst
 
                         // 0x08 fillall memories with byte from src
@@ -703,7 +1028,7 @@ module central_processor (
                         // 0x10 (src^key)=dst
 
 
-                        
+
 
                                 
 

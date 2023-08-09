@@ -1,15 +1,15 @@
 [
  {
   "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-  "InstLine" : 792,
+  "InstLine" : 1117,
   "InstName" : "top",
   "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-  "ModuleLine" : 792,
+  "ModuleLine" : 1117,
   "ModuleName" : "top",
   "SubInsts" : [
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 835,
+    "InstLine" : 1160,
     "InstName" : "bankmem_src",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/gowin_dpb/gowin_dpb_16k.v",
     "ModuleLine" : 10,
@@ -17,7 +17,7 @@
    },
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 873,
+    "InstLine" : 1198,
     "InstName" : "bankmem_key",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/gowin_dpb/gowin_dpb_16k.v",
     "ModuleLine" : 10,
@@ -25,7 +25,7 @@
    },
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 911,
+    "InstLine" : 1236,
     "InstName" : "bankmem_cmd",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/gowin_dpb/gowin_dpb_16k.v",
     "ModuleLine" : 10,
@@ -33,7 +33,7 @@
    },
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 949,
+    "InstLine" : 1274,
     "InstName" : "bankmem_dst",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/gowin_dpb/gowin_dpb_16k.v",
     "ModuleLine" : 10,
@@ -41,7 +41,7 @@
    },
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 971,
+    "InstLine" : 1296,
     "InstName" : "myarduino_io",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
     "ModuleLine" : 7,
@@ -49,7 +49,7 @@
    },
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 1034,
+    "InstLine" : 1359,
     "InstName" : "bankmem_ram",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/gowin_sp/gowin_sp_16k.v",
     "ModuleLine" : 10,
@@ -57,7 +57,7 @@
    },
    {
     "InstFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
-    "InstLine" : 1051,
+    "InstLine" : 1376,
     "InstName" : "mycentral_processor",
     "ModuleFile" : "C:/Users/james/OneDrive/verilog/hardware_accel/arduino_io/arduino_io_tang/src/top.v",
     "ModuleLine" : 438,
