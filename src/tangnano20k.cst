@@ -6,7 +6,7 @@ IO_LOC  "arduino_reset" 77;
 
 IO_LOC  "arduino_clock" 27;
 
-IO_LOC  "arduino_readwrite" 79;
+IO_LOC  "arduino_readwrite" 53;
 
 IO_LOC  "arduino_databank[1]" 86;
 

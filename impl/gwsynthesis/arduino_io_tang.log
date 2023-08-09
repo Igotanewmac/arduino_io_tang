@@ -44,9 +44,7 @@ WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users
 WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":2256)
 WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":2311)
 WARN  (EX3791) : Expression size 15 truncated to fit in target size 14("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":2341)
-WARN  (EX1998) : Net 'reg_lfsr_single[15]' does not have a driver("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":530)
 NOTE  (EX0101) : Current top module is "top"
-WARN  (EX0211) : The output port "mem_dst_oce" of module "central_processor" has no driver, assigning undriven bits to Z, simulation mismatch possible("C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v":475)
 [5%] Running netlist conversion ...
 Running device independent optimization ...
 [10%] Optimizing Phase 0 completed

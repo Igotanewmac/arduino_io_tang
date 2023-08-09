@@ -527,10 +527,10 @@ module central_processor (
 
 
     // special registers
-    reg [15:0] reg_lfsr_single;
-    always @(reg_lfsr_single) begin
-        reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-    end
+    // reg [15:0] reg_lfsr_single;
+    // always @(reg_lfsr_single) begin
+    //     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
+    // end
 
 
 
