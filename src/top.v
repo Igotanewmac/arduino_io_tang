@@ -527,11 +527,14 @@ module central_processor (
 
 
     // special registers
-    // reg [15:0] reg_lfsr_single;
-    // always @(reg_lfsr_single) begin
-    //     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-    // end
-
+    
+    
+    reg [15:0] reg_lfsr_single;
+    /*
+    always @(reg_lfsr_single) begin
+        reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
+    end
+    */
 
 
 
@@ -1219,10 +1222,135 @@ module central_processor (
 
 
                         // 0x20 load 2 bytes of key into lfsr
+                        8'h20 : begin
+                            //
+                            case (statemachine_command)
+                                // initiaise
+                                8'h00 : begin
+                                    mem_key_ce <= 1'b1;
+                                    mem_key_oce <= 1'b1;
+                                    statemachine_command <= 8'h01;
+                                end
+                                // // set address for byte 0
+                                8'h01 : begin
+                                    mem_key_ad <= 14'd0;
+                                    statemachine_command <= 8'h02;
+                                end
+                                // clock high
+                                8'h02 : begin
+                                    mem_key_clk <= 1'b1;
+                                    statemachine_command <= 8'h03;
+                                end
+                                // clock low
+                                8'h03 : begin
+                                    mem_key_clk <= 1'b0;
+                                    statemachine_command <= 8'h04;
+                                end
+                                // read data
+                                8'h04 : begin
+                                    reg_lfsr_single[7:0] <= mem_key_dout;
+                                    statemachine_command <= 8'h05;
+                                end
+                                // set address to byte 1
+                                8'h05 : begin
+                                    mem_key_ad <= 14'd1;
+                                    statemachine_command <= 8'h06;
+                                end
+                                // clock high
+                                8'h06 : begin
+                                    mem_key_clk <= 1'b1;
+                                    statemachine_command <= 8'h07;
+                                end
+                                // clock low
+                                8'h07 : begin
+                                    mem_key_clk <= 1'b0;
+                                    statemachine_command <= 8'h08;
+                                end
+                                // read data
+                                8'h08 : begin
+                                    reg_lfsr_single[15:8] <= mem_key_dout;
+                                    statemachine_command <= 8'h09;
+                                end
+                                // finish up
+                                8'h09 : begin
+                                    mem_key_ce <= 1'b0;
+                                    mem_key_oce <= 1'b0;
+                                    statemachine_program <= 8'hFE;
+                                end
+                            endcase
+                        end
 
                         // 0x21 (src^lfsr)=dst
 
-                        // 0x22 copy lfsr to dst
+                        // 0x22 step lfsr
+                        8'h22 : begin
+                            case (statemachine_command)
+                                // step the lfsr
+                                8'h00 : begin
+                                    reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
+                                    statemachine_command <= 8'h01;
+                                end
+                                8'h01 : begin
+                                    reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
+                                    statemachine_program <= 8'hFE;
+                                end
+                            endcase
+                        end
+
+                        // 0x23 copy lfsr to dst
+                        8'h23 : begin
+                            case (statemachine_command)
+                                // initialise
+                                8'h00 : begin
+                                    mem_dst_ce <= 1'b1;
+                                    mem_dst_wre <= 1'b1;
+                                    statemachine_command <= 8'h01;
+                                end
+                                // set address and data for byte 0
+                                8'h01 : begin
+                                    mem_dst_ad <= 14'd0;
+                                    mem_dst_din <= reg_lfsr_single[7:0];
+                                    statemachine_command <= 8'h02;
+                                end
+                                // clock high
+                                8'h02 : begin
+                                    mem_dst_clk <= 1'b1;
+                                    statemachine_command <= 8'h03;
+                                end
+                                // clock low
+                                8'h03 : begin
+                                    mem_dst_clk <= 1'b0;
+                                    statemachine_command <= 8'h04;
+                                end
+                                // set address and data for byte 1
+                                8'h04 : begin
+                                    mem_dst_ad <= 14'd1;
+                                    mem_dst_din <= reg_lfsr_single[15:8];
+                                    statemachine_command <= 8'h05;
+                                end
+                                // clock high
+                                8'h05 : begin
+                                    mem_dst_clk <= 1'b1;
+                                    statemachine_command <= 8'h06;
+                                end
+                                // clock low
+                                8'h06 : begin
+                                    mem_dst_clk <= 1'b0;
+                                    statemachine_command <= 8'h07;
+                                end
+                                // finish up
+                                8'h07 : begin
+                                    mem_dst_ce <= 1'b0;
+                                    mem_dst_wre <= 1'b0;
+                                    statemachine_program <= 8'hFE;
+                                end
+                            endcase
+                        end
+
+
+
+
+
 
 
 
