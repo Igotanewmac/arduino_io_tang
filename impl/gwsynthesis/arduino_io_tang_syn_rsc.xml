@@ -4,7 +4,7 @@
     <SubModule name="bankmem_key" Bsram="8"/>
     <SubModule name="bankmem_cmd" Bsram="8"/>
     <SubModule name="bankmem_dst" Bsram="8"/>
-    <SubModule name="myarduino_io" Register="174" Alu="52" Lut="66"/>
+    <SubModule name="myarduino_io" Register="174" Alu="52" Lut="67"/>
     <SubModule name="bankmem_ram" Bsram="8"/>
-    <SubModule name="mycentral_processor" Register="203" Alu="13" Lut="749"/>
+    <SubModule name="mycentral_processor" Register="205" Alu="13" Lut="777"/>
 </Module>

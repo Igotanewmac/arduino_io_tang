@@ -357,7 +357,7 @@ module arduino_io (
                                 8'h04 : begin
                                     mem_dst_ce <= 1'b0;
                                     mem_dst_oce <= 1'b0;
-                                    addressregister_dst = addressregister_dst + 1;
+                                    addressregister_dst <= addressregister_dst + 1;
                                     statemachine_memory <= 8'h00;
                                     statemachine_arduino_clock <= 8'h02;
                                 end
@@ -526,8 +526,6 @@ module central_processor (
 
 
     // special registers
-    
-    
     reg [15:0] reg_lfsr_single;
 
 
@@ -560,6 +558,8 @@ module central_processor (
             mem_cmd_reset <= 1'b1;
             mem_dst_reset <= 1'b1;
             mem_ram_reset <= 1'b1;
+            reg_int_address <= 14'd0;
+            reg_int_data <= 8'd0;
         end
         else begin
             // not a reset
@@ -865,7 +865,7 @@ module central_processor (
                                 end
                                 // finish up
                                 8'h0B : begin
-                                    statemachine_program <= 8'hFE;
+                                    statemachine_program <= 8'hFF;
                                     
                                 end
                                 
@@ -937,7 +937,7 @@ module central_processor (
                                 end
                                 // increment address counter
                                 8'h09 : begin
-                                    reg_int_address = reg_int_address + 1;
+                                    reg_int_address <= reg_int_address + 1;
                                     statemachine_command <= 8'h0A;
                                 end
                                 // if address counter is zero, jmp
@@ -1300,191 +1300,191 @@ module central_processor (
                                 8'h00 : begin
                                     reg_int_address <= 14'd0;
                                     reg_int_data <= 8'd0;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h01;
                                 end
                                 
 
                                 // step lfsr 8 time into data register
                                 // step lfsr 0
-                                8'h00 : begin
+                                8'h01 : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h02;
                                 end
-                                8'h00 : begin
+                                8'h02 : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h03;
                                 end
-                                8'h00 : begin
+                                8'h03 : begin
                                     reg_int_data[0] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h04;
                                 end
                                 // step lfsr 1
-                                8'h00 : begin
+                                8'h04 : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h05;
                                 end
-                                8'h00 : begin
+                                8'h05 : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h06;
                                 end
-                                8'h00 : begin
+                                8'h06 : begin
                                     reg_int_data[1] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h07;
                                 end
                                 // step lfsr 2
-                                8'h00 : begin
+                                8'h07 : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h08;
                                 end
-                                8'h00 : begin
+                                8'h08 : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h09;
                                 end
-                                8'h00 : begin
+                                8'h09 : begin
                                     reg_int_data[2] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h0A;
                                 end
                                 // step lfsr 3
-                                8'h00 : begin
+                                8'h0A : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h0B;
                                 end
-                                8'h00 : begin
+                                8'h0B : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h0C;
                                 end
-                                8'h00 : begin
+                                8'h0C : begin
                                     reg_int_data[3] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h0D;
                                 end
                                 // step lfsr 4
-                                8'h00 : begin
+                                8'h0D : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h0E;
                                 end
-                                8'h00 : begin
+                                8'h0E : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h0F;
                                 end
-                                8'h00 : begin
+                                8'h0F : begin
                                     reg_int_data[4] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h10;
                                 end
                                 // step lfsr 5
-                                8'h00 : begin
+                                8'h10 : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h11;
                                 end
-                                8'h00 : begin
+                                8'h11 : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h12;
                                 end
-                                8'h00 : begin
+                                8'h12 : begin
                                     reg_int_data[5] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h13;
                                 end
                                 // step lfsr 6
-                                8'h00 : begin
+                                8'h13 : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h14;
                                 end
-                                8'h00 : begin
+                                8'h14 : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h15;
                                 end
-                                8'h00 : begin
+                                8'h15 : begin
                                     reg_int_data[6] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h16;
                                 end
                                 // step lfsr 7
-                                8'h00 : begin
+                                8'h16 : begin
                                     reg_lfsr_single[15:1] <= reg_lfsr_single[14:0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h17;
                                 end
-                                8'h00 : begin
+                                8'h17 : begin
                                     reg_lfsr_single[0] <= (((reg_lfsr_single[15]^reg_lfsr_single[13])^reg_lfsr_single[12])^reg_lfsr_single[10]);
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h18;
                                 end
-                                8'h00 : begin
+                                8'h18 : begin
                                     reg_int_data[7] <= reg_lfsr_single[0];
-                                    statemachine_command <= 8'h00;
+                                    statemachine_command <= 8'h19;
                                 end
                                 
                                 
 
                                 // load byte from src into data register
                                 // set up chip
-                                8'h00 : begin
+                                8'h19 : begin
                                     mem_src_ce <= 1'b1;
                                     mem_src_oce <= 1'b1;
                                     mem_src_ad <= reg_int_address;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h1A;
                                 end
                                 // clock high
-                                8'h00 : begin
+                                8'h1A : begin
                                     mem_src_clk <= 1'b1;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h1B;
                                 end
                                 // clock low
-                                8'h00 : begin
+                                8'h1B : begin
                                     mem_src_clk <= 1'b0;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h1C;
                                 end
                                 // read data
-                                8'h00 : begin
+                                8'h1C : begin
                                     reg_int_data <= reg_int_data ^ mem_src_dout;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h1D;
                                 end
                                 // finish up
-                                8'h00 : begin
+                                8'h1D : begin
                                     mem_src_ce <= 1'b0;
                                     mem_src_oce <= 1'b0;
-                                    statemachine_command <= 1'h00;
+                                    statemachine_command <= 8'h1E;
                                 end
                                 
 
                                 // write byte to dst
                                 //  set up chip
-                                8'h00 : begin
+                                8'h1E : begin
                                     mem_dst_ce <= 1'b1;
                                     mem_dst_wre <= 1'b1;
                                     mem_dst_ad <= reg_int_address;
                                     mem_dst_din <= reg_int_data;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h1F;
                                 end
                                 // clock high
-                                8'h00 : begin
+                                8'h1F : begin
                                     mem_dst_clk <= 1'b1;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h20;
                                 end
                                 // clock low
-                                8'h00 : begin
-                                    mem_dst_clk 1'b0;
-                                    statemachine_command = 8'h00;
+                                8'h20 : begin
+                                    mem_dst_clk <= 1'b0;
+                                    statemachine_command <= 8'h21;
                                 end
                                 // finish up
-                                8'h00 : begin
+                                8'h21 : begin
                                     mem_dst_ce <= 1'b0;
                                     mem_dst_wre <= 1'b0;
-                                    statemachine_command = 8'h00;
+                                    statemachine_command <= 8'h22;
                                 end
                                 
 
                                 // increment address counter
-                                8'h00 : begin
-                                    reg_int_address = reg_int_address + 1;
-                                    statemachine_command = 8'h00;
+                                8'h22 : begin
+                                    reg_int_address <= reg_int_address + 1;
+                                    statemachine_command <= 8'h23;
                                 end
 
                                 // jne
-                                8'h00 : begin
-                                    if ( reg_int_address != 0 ) statemachine_command <= 8'h00;
-                                    else statemachine_command = 8'h00;
+                                8'h23 : begin
+                                    if ( reg_int_address != 0 ) statemachine_command <= 8'h01;
+                                    else statemachine_command <= 8'h24;
                                 end
 
                                 // finish up
-                                8'h00 : begin
-                                    statemachine_program = 8'hFE;
+                                8'h24 : begin
+                                    statemachine_program <= 8'hFE;
                                 end
                                 
                                 
@@ -1523,7 +1523,8 @@ module central_processor (
                                 // set address and data for byte 0
                                 8'h01 : begin
                                     mem_dst_ad <= 14'd0;
-                                    mem_dst_din <= reg_lfsr_single[7:0];
+                                    //mem_dst_din <= reg_lfsr_single[7:0];
+                                    mem_dst_din <= 8'hDE;
                                     statemachine_command <= 8'h02;
                                 end
                                 // clock high
@@ -1539,7 +1540,8 @@ module central_processor (
                                 // set address and data for byte 1
                                 8'h04 : begin
                                     mem_dst_ad <= 14'd1;
-                                    mem_dst_din <= reg_lfsr_single[15:8];
+                                    //mem_dst_din <= reg_lfsr_single[15:8];
+                                    mem_dst_din <= 8'hAD;
                                     statemachine_command <= 8'h05;
                                 end
                                 // clock high

@@ -5,8 +5,8 @@
     <Device id="GW2AR-18C" package="QFN88" speed="8" partNumber="GW2AR-LV18QN88C8/I7"/>
     <FileList>
         <File path="C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\gowin_dpb\gowin_dpb_16k.v" type="verilog"/>
-        <File path="C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v" type="verilog"/>
         <File path="C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\gowin_sp\gowin_sp_16k.v" type="verilog"/>
+        <File path="C:\Users\james\OneDrive\verilog\hardware_accel\arduino_io\arduino_io_tang\src\top.v" type="verilog"/>
     </FileList>
     <OptionList>
         <Option type="disable_insert_pad" value="0"/>
